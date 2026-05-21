@@ -1,0 +1,19 @@
+{
+  "name": "team-task-manager-full-stack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-ready MERN team task manager with JWT auth, RBAC, project management, task tracking, dashboard analytics, and Railway deployment support.",
+  "scripts": {
+    "install:all": "npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "seed": "npm run seed --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
