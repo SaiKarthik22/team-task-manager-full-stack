@@ -153,7 +153,12 @@ git push -u origin main
 
 1. Push the repository to GitHub.
 2. Create a new Railway project from the GitHub repo.
-3. Add these environment variables:
+3. Add a MongoDB database:
+
+- Option A: Add Railway's MongoDB service to the same project, then reference its connection string in your web service variables.
+- Option B: Use MongoDB Atlas and paste the Atlas connection string.
+
+4. Add these environment variables to the Railway web service:
 
 ```env
 PORT=5000
@@ -163,8 +168,29 @@ CLIENT_URL=https://your-railway-app.up.railway.app
 NODE_ENV=production
 ```
 
-4. Railway will run `npm run build` and `npm start` from the root.
-5. The Express server serves the built React app from `client/dist` in production.
+The backend accepts any one of these MongoDB variable names: `MONGO_URI`, `MONGODB_URI`, `MONGO_URL`, or `DATABASE_URL`.
+
+If Railway provides a MongoDB variable such as `MONGO_URL`, either keep that name or create:
+
+```env
+MONGO_URI=${{MongoDB.MONGO_URL}}
+```
+
+5. Railway will run `npm run build` and `npm start` from the root.
+6. The Express server serves the built React app from `client/dist` in production.
+
+### Fix For `MONGO_URI is required`
+
+That error means the Railway web service has no MongoDB connection string. Open the Railway project, select the deployed web service, go to **Variables**, and add one MongoDB connection string variable. The easiest setup is:
+
+```env
+MONGO_URI=mongodb+srv://USER:PASSWORD@HOST/team_task_manager?retryWrites=true&w=majority
+JWT_SECRET=a_long_random_secret_at_least_32_characters
+CLIENT_URL=https://your-railway-app.up.railway.app
+NODE_ENV=production
+```
+
+Redeploy after saving variables.
 
 ## Production Notes
 
